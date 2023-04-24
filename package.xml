@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>kresling</name>
+  <version>0.0.0</version>
+  <description>The kresling package</description>
+
+  <maintainer email="miyamichi@jsk.imi.i.u-tokyo.ac.jp">Ayano Miyamichi</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>mocap_optitrack</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>rosserial</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <export>
+  </export>
+
+</package>
