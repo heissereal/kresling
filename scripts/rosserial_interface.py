@@ -28,7 +28,7 @@ class rosserialInterface:
         self.pose = msg
 
     def joyCallback(self, msg):
-        self.joy = joy
+        self.joy = msg
 
     def timerCallback(self, event):
         self.servo0_msg.data = 90
