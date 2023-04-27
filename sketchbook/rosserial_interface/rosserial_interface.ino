@@ -8,10 +8,10 @@
 #define SERVO_PIN3_r 10
 
 // TODO: find offset value for each motors. offset is the pwm value when motor is not rorating.
-#define SERVO0_OFFSET 90
-#define SERVO1_OFFSET 90
-#define SERVO2_OFFSET 90
-#define SERVO3_OFFSET 90
+#define SERVO0_OFFSET 86
+#define SERVO1_OFFSET 88
+#define SERVO2_OFFSET 78
+#define SERVO3_OFFSET 86
 
 #define ANALOG_PIN_0 1
 
