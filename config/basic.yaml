@@ -1,17 +1,19 @@
 # You can find control table of Dynamixel on emanual (http://emanual.robotis.com/#control-table)
 # Control table item has to be set Camel_Case and not included whitespace
 # You are supposed to set at least Dynamixel ID
-bakui:
+servo0:
   ID: 1
   Return_Delay_Time: 0
-nishio:
+  Operating_Mode: 3
+servo1:
   ID: 2
   Return_Delay_Time: 0
-kojima:
+  Operating_Mode: 3
+servo2:
   ID: 3
   Return_Delay_Time: 0
-kunio:
+  Operating_Mode: 3
+servo3:
   ID: 4
   Return_Delay_Time: 0
-
-
+  Operating_Mode: 3
