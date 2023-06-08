@@ -77,5 +77,5 @@ void loop() {
   //sensor1_pub.publish(&sensor1_msg);
   //sensor2_pub.publish(&sensor2_msg);
   //sensor3_pub.publish(&sensor3_msg);
-  delay(50);
+  delay(100);
 }
