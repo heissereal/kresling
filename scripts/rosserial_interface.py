@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+
+#!/usr/bin/env python
 
 import rospy
 import tf
@@ -6,12 +7,15 @@ from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import Joy
 from std_msgs.msg import Int16
+import math
 
 class rosserialInterface:
     def __init__(self):
         self.servo_speeds = [90, 90, 90, 90]
         self.pose = PoseStamped()
         self.joy = Joy()
+        self.thresh = rospy.get_param("angle_threshold", 10.0) # deg
+        self.thresh = self.thresh * math.pi / 180.0
         self.mocap_sub = rospy.Subscriber("mocap/pose", PoseStamped, self.mocapCallback)
         self.joy_sub = rospy.Subscriber("joy", Joy, self.joyCallback)
 
@@ -47,16 +51,31 @@ class rosserialInterface:
         Kp = 50
         output_x = - self.euler_vector.x*Kp
         output_y = - self.euler_vector.y*Kp
+        if output_y > 90.0:
+            output_y = 90.0
+        if output_y < -90.0:
+            output_y =-90.0
+        if output_x > 90.0:
+            output_x = 90.0
+	if output_x < -90.0:
+            output_x =-90.0
         #output_z = euler_vector.z*0.01
-        self.servo0_msg.data = int(-output_y)
-        self.servo2_msg.data = int(output_y)
-        #if euler degree y > 0, output of servo0 is positive and output of servo2 is negative.
-        #servo0 and 2 rotate and expand when servo_degree > 90 
+        print("euler: {}, {}, {}".format(self.euler_vector.x, self.euler_vector.y, self.euler_vector.z))
+        if math.fabs(self.euler_vector.x) > self.thresh or math.fabs(self.euler_vector.y) > self.thresh:
+            self.servo1_msg.data = int(-output_y)
+            self.servo3_msg.data = int(output_y)
+            self.servo0_msg.data = int(output_x)
+            self.servo2_msg.data = int(-output_x)
 
-        self.servo1_msg.data = int(output_x)
-        self.servo3_msg.data = int(-output_x)
-        #if euler degree x > 0, output of servo1 is positive and output of servo3 is negative.
+        else:
+            self.servo1_msg.data = 60
+            self.servo3_msg.data = 60
+        #if euler degree y > 0, output of servo1 is positive and output of servo2 is negative.
         #servo1 and 3 rotate and expand when servo_degree < 90 
+            self.servo0_msg.data = -60
+            self.servo2_msg.data = -60
+        #if euler degree x > 0, output of servo0 is positive and output of servo2 is negative.
+        #servo1 and 3 rotate and expand when servo_degree > 90 
         
             
     def timerCallback(self, event):

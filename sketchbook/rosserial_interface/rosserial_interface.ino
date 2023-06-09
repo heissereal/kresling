@@ -11,7 +11,7 @@
 #define SERVO0_OFFSET 86
 #define SERVO1_OFFSET 88
 #define SERVO2_OFFSET 78
-#define SERVO3_OFFSET 86
+#define SERVO3_OFFSET 82
 
 #define ANALOG_PIN_0 1
 
@@ -104,7 +104,5 @@ void loop() {
   myservo0_l.write(SERVO0_OFFSET + servo0_target);
   myservo1_l.write(SERVO1_OFFSET + servo1_target);
   myservo2_r.write(SERVO2_OFFSET + servo2_target);
-  myservo3_r.write(SERVO3_OFFSET + servo3_target);
-
   delay(50);
 }

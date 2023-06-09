@@ -24,7 +24,7 @@ void servo3Callback(const std_msgs::Int16& msg) { servo3_deg = msg.data; }
 
 
 ros::NodeHandle nh;
-ros::Subscriber<std_msgs::Int16> servo0_command_sub("servo0/command", &servoCallback);
+ros::Subscriber<std_msgs::Int16> servo0_command_sub("servo0/command", &servo0Callback);
 ros::Subscriber<std_msgs::Int16> servo1_command_sub("servo1/command", &servo1Callback);
 ros::Subscriber<std_msgs::Int16> servo2_command_sub("servo2/command", &servo2Callback);
 ros::Subscriber<std_msgs::Int16> servo3_command_sub("servo3/command", &servo3Callback);
@@ -42,6 +42,7 @@ void setup() {
   myservo1.attach(SERVO_PIN1);
   myservo2.attach(SERVO_PIN2);
   myservo3.attach(SERVO_PIN3);
+}
 
 void loop() {
   nh.spinOnce();
