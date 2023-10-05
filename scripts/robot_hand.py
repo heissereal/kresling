@@ -31,8 +31,8 @@ class hand_Interface:
         #     self.servo_msg[i] = self.sensor_msg.data[i]
         self.servo0_msg.data = self.sensor_msg.data[0]
         self.servo1_msg.data = self.sensor_msg.data[1]
-        self.servo2_msg.data = self.sensor_msg.data[2]
-        self.servo3_msg.data = self.sensor_msg.data[3]
+        self.servo2_msg.data = 180 - self.sensor_msg.data[2]
+        self.servo3_msg.data = 180 - self.sensor_msg.data[3]
         self.servo0_pub.publish(self.servo0_msg)
         self.servo1_pub.publish(self.servo1_msg)
         self.servo2_pub.publish(self.servo2_msg)

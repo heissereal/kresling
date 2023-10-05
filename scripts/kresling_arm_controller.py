@@ -27,6 +27,7 @@ class dynamixelInterface:
         self.control_degree = [0] * 4
         self.output = Vector3(0,0,0)
         self.i_output = Vector3(0,0,0)
+        self.offset = 1.3
 
         self.control_mode = rospy.get_param("~control_mode", True)
         
@@ -73,6 +74,8 @@ class dynamixelInterface:
         self.euler_vec.x = euler[0]
         self.euler_vec.y = euler[1]
         self.euler_vec.z = euler[2]
+        rospy.loginfo(self.max_height)
+        #rospy.loginfo(self.euler_vec.y)
 
 
     def joyCallback(self, msg):
@@ -131,13 +134,25 @@ class dynamixelInterface:
         self.control()
 
         self.trajectory_msg.joint_names = ['servo0','servo1','servo2','servo3']
-
         if self.initialized_flag:
+
+            self.offset = 0.09/(0.08*abs(self.degree[2]-self.initial_position[2])+0.3) + 1
+            # 3->3 , 2->2, 4 ->0 1->1
             self.degree[0]  =   self.cnt_deg - self.i_output.y + self.initial_position[0]
             self.degree[1]  =  -self.cnt_deg + self.i_output.x + self.initial_position[1]
             self.degree[2]  =   self.cnt_deg + self.i_output.y + self.initial_position[2]
             self.degree[3]  =  -self.cnt_deg - self.i_output.x + self.initial_position[3]
+            # self.degree[0]  =self.initial_position[0]
+            # self.degree[1]  =self.initial_position[1]
+            # self.degree[2]  =self.initial_position[2]
+            # self.degree[3]  =self.initial_position[3]
             self.trajectory_point.positions = self.degree
+            #rospy.loginfo("##################")
+            #rospy.loginfo(self.offset)
+            # rospy.loginfo(self.degree[0] - self.initial_position[0])
+            # rospy.loginfo(self.degree[1] - self.initial_position[1])
+            # rospy.loginfo(self.degree[2] - self.initial_position[2])
+            # rospy.loginfo(self.degree[3] - self.initial_position[3])
 
         self.trajectory_point.velocities = [0.0,0.0,0.0,0.0]
         self.trajectory_point.accelerations = [0.0, 0.0,0.0,0.0]
